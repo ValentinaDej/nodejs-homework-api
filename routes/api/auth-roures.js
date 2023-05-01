@@ -8,6 +8,12 @@ const { schemas } = require("../../models/user");
 const router = express.Router();
 
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
+router.get("/verify/:verificationCode", ctrl.verify);
+router.post(
+  "/verify",
+  validateBody(schemas.emailSchema),
+  ctrl.resendVerifyEmail
+);
 router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 router.get("/current", authentificate, ctrl.getCurrent);
 router.post("/logout", authentificate, ctrl.logout);
